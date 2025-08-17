@@ -17,9 +17,9 @@ Goal of this project was to produce GPU-friendly training inputs for a transform
   - [4.4) `pipeline.build_training_inputs`](#44-pipelinebuild_training_inputs)
 - [5) Running the Pipeline](#5-running-the-pipeline)
   - [5.1) Modes](#51-modes)
-  - [5.2) CLI Examples](#52-cli-examples)
-  - [5.3) Makefile Shortcuts](#53-makefile-shortcuts)
-  - [5.4) Usage Demos](#54-usage-demos)
+  - [5.2) Makefile Shortcuts](#52-makefile-shortcuts)
+  - [5.3) Usage Demos](#53-usage-demos)
+  - [5.4) CLI Examples](#54-cli-examples)
 - [6) Output Format (for Training)](#6-output-format-for-training)
 - [7) Proposed Training Plan (PyTorch, High-Level)](#7-proposed-training-plan-pytorch-high-level)
 - [8) Performance Considerations](#8-performance-considerations)
@@ -156,46 +156,8 @@ Top-level assembly that calls the above modules, including minor **performance**
 * **LOCAL**: Load JSON arrays from `./data/*` (write some with `scripts/generate_mock_data.py`).
 * **EXTERNAL**: Provide paths/patterns for impressions/clicks/atc/orders (JSON or Parquet). Malformed rows are quarantined under the output folder.
 
-### 5.2) CLI Examples
 
-> Use a virtualenv first (see Makefile).
-
-**Demo (fastest):**
-
-```bash
-python scripts/run.py --demo --out out/training_inputs
-```
-
-**Local mock data (generate → run):**
-
-```bash
-python scripts/generate_mock_data.py --base data --days 30 --customers 50 --items 500 --batch-size 200
-python scripts/run.py --out out/training_inputs --max-actions 1000 --lookback-days 365
-```
-
-**External files:**
-
-```bash
-python scripts/run.py \
-  --impressions-path "s3a://…/impressions/*" \
-  --clicks-path "s3a://…/clicks/*" \
-  --atc-path "s3a://…/atc/*" \
-  --orders-path "s3a://…/orders/*" \
-  --out "s3a://…/training_inputs" \
-  --train-days 14 \
-  --max-actions 1000 \
-  --lookback-days 365 \
-  --fail-on-same-day-leak
-```
-
-> Use `--explode` if you want one row per impression-item.
-
-**Quarantine example (EXTERNAL mode):** malformed JSON is written under the run folder, for example:  
-`out/training_inputs/2025_08_17_12_00_00/_quarantine_impressions/*.json`
-
-> **Local resources:** If your laptop is memory-constrained, set `SPARK_DRIVER_MEMORY=4g` before running, or reduce `--max-actions` / `--train-days`.
-
-### 5.3) Makefile Shortcuts
+### 5.2) Makefile Shortcuts
 
 **Setup & Development**
 
@@ -233,7 +195,7 @@ make data-clean    # Remove ./data/
 make clean         # Remove caches/artifacts
 make clean-all     # Also remove venv
 ```
-### 5.4) Usage Demos
+### 5.3) Usage Demos
 
 > **Before you run any demos, do:** `make setup` (creates venv & installs deps).
 >
@@ -273,6 +235,45 @@ If your provided dataset contains at least one same-day action relative to an im
 
 ![make show out](docs/show_out_1.png)
 ![make show out_2](docs/show_out_2.png)
+
+### 5.4) CLI Examples
+
+> Use a virtualenv first (see Makefile).
+
+**Demo (fastest):**
+
+```bash
+python scripts/run.py --demo --out out/training_inputs
+```
+
+**Local mock data (generate → run):**
+
+```bash
+python scripts/generate_mock_data.py --base data --days 30 --customers 50 --items 500 --batch-size 200
+python scripts/run.py --out out/training_inputs --max-actions 1000 --lookback-days 365
+```
+
+**External files:**
+
+```bash
+python scripts/run.py \
+  --impressions-path "s3a://…/impressions/*" \
+  --clicks-path "s3a://…/clicks/*" \
+  --atc-path "s3a://…/atc/*" \
+  --orders-path "s3a://…/orders/*" \
+  --out "s3a://…/training_inputs" \
+  --train-days 14 \
+  --max-actions 1000 \
+  --lookback-days 365 \
+  --fail-on-same-day-leak
+```
+
+> Use `--explode` if you want one row per impression-item.
+
+**Quarantine example (EXTERNAL mode):** malformed JSON is written under the run folder, for example:  
+`out/training_inputs/2025_08_17_12_00_00/_quarantine_impressions/*.json`
+
+> **Local resources:** If your laptop is memory-constrained, set `SPARK_DRIVER_MEMORY=4g` before running, or reduce `--max-actions` / `--train-days`.
 
 ---
 
@@ -484,6 +485,7 @@ pyspark-coding-challenge/
   2) `make run-demo`
   3) `make show-out`
   4) `make test`
+
 
 
 
