@@ -1,0 +1,12 @@
+target-version = "py39"
+line-length = 120
+
+[lint]
+select = ["E", "F", "B", "I", "PL", "RUF"]
+ignore = ["E203"]
+
+[lint.per-file-ignores]
+"tests/**" = ["PLC0415", "PLR2004", "E501", "B007"]
+"scripts/run.py" = ["PLR0915", "E501", "RUF001", "RUF003"]
+"scripts/generate_mock_data.py" = ["PLR2004", "B023", "E501"]
+"src/challenge/pipeline.py" = ["PLR0913"]

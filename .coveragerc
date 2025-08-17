@@ -1,0 +1,12 @@
+[run]
+source = src, scripts
+branch = True
+omit =
+    venv/*
+    tests/*
+
+[report]
+show_missing = True
+skip_covered = False
+precision = 1
+sort = Name
