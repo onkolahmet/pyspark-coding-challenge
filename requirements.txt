@@ -1,0 +1,17 @@
+# --- Runtime ---
+pyspark==4.0.0
+pyarrow==21.0.0
+
+# Optional but handy for local checks / toPandas
+pandas==2.2.2
+numpy==1.26.4
+
+# --- Dev & QA ---
+pytest==8.4.1
+pytest-mock==3.14.1
+ruff==0.12.8
+mypy==1.17.1
+PyYAML>=6.0.1
+hypothesis>=6.105.0
+black==24.8.0
+pytest-cov>=4.1
