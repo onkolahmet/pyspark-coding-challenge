@@ -448,8 +448,6 @@ pyspark-coding-challenge/
 ## 12) Assumptions & Limitations
 
 * If orders lack per-event timestamps, I normalize them to **midnight** of `order_date` so day math remains correct.
-* I do **not** use `simple_id` for ATC in the model input; it could be joined later if a size-level embedding is needed.
-* I keep **duplicates** in action history by design.
 * For extreme user skew, **additional salting** / **AQE** strategies may be added in a cluster setting.
 
 ---
@@ -485,6 +483,7 @@ pyspark-coding-challenge/
   2) `make run-demo`
   3) `make show-out`
   4) `make test`
+
 
 
 
