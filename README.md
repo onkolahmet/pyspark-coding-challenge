@@ -393,7 +393,7 @@ make coverage   # optional alias to print/open coverage
 
 ### 10.3) Environment
 
-- **Python**: 3.9.x (tested; also works with 3.10/3.11)
+- **Python**: 3.9.x (tested)
 - **PySpark**: 4.0.0
 - **Java**: 11 or 17 recommended
 - **OS used**: macOS 14.x (should be OS-agnostic)
@@ -484,5 +484,6 @@ pyspark-coding-challenge/
   2) `make run-demo`
   3) `make show-out`
   4) `make test`
+
 
 
