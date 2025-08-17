@@ -240,7 +240,6 @@ make clean-all     # Also remove venv
 > The first `make run` on a fresh machine is slower because Python deps are installed, the Spark session warms up JIT/IO caches, and the `~/.ivy2` / `~/.cache` layers populate. Subsequent runs are much faster.
 
 **`make help` (quick command reference):**  
-_You can replace the image path with one under `docs/` in your repo._
 
 ![make help](docs/make_help.png)
 
@@ -485,4 +484,5 @@ pyspark-coding-challenge/
   2) `make run-demo`
   3) `make show-out`
   4) `make test`
+
 
